@@ -14,7 +14,7 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 class SVMForTelemedicalQueryClassification():
-    def __init__(self, train_set, test_set, path_to_glove, model_type = 'TFIDF'):
+    def __init__(self, train_set, test_set, path_to_glove=None, model_type = 'TFIDF'):
 
         self.train_set = train_set
         self.test_set = test_set
