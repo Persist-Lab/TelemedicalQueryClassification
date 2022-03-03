@@ -1,11 +1,4 @@
-### General Functions ### 
-def data_integrity_checker(train, test):
-  train_texts = train.original_text.tolist()
-  test_texts = test.original_text.tolist()
-
-  for text in train_texts:
-    assert text not in test_texts
-
+from sklearn.metrics import f1_score, precision_score, recall_score, classification_report
 def f1_precision_recall(labels, preds):
     f1 = f1_score(labels, preds, average='weighted')
     precision = precision_score(labels, preds, average='weighted')
