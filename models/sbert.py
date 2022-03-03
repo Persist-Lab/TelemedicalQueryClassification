@@ -56,7 +56,6 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
     knn.fit(train_embeddings, self.train_set.label.tolist())
     # Get Preds 
     preds = knn.predict(test_embeddings)
-    # print(classification_report(self.test_set.label.tolist(), preds))
 
     f1, precision, recall = f1_precision_recall(self.test_set.label.tolist(), preds)
     return (f1, precision, recall), preds 
@@ -75,16 +74,17 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
       for s in range(len(df)):
         # Get sample S
         text, label = df.iloc[s]
+        print(df)
         # Create DF with every sample which is not S
-        all_others = df[df.query != text]
+        all_others = df[df['query'] != text]
         # Randomly generate triplets 
         for i in range(triplets_per):
-          pos = all_others.sample(n=1).query.item()
+          pos = all_others.sample(n=1)['query'].item()
           if key == "severes":
-            neg = non_severes.sample(n=1).query.item()
+            neg = non_severes.sample(n=1)['query'].item()
             anchor_triplets.append([(text, 1), (pos, 1),(neg, 0)])
           elif key == "non_severes":
-            neg = severes.sample(n=1).query.item()
+            neg = severes.sample(n=1)['query'].item()
             anchor_triplets.append([(text, 0), (pos, 0),(neg, 1)])
           else:
             print(key)
