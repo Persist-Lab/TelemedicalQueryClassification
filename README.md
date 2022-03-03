@@ -10,3 +10,9 @@ Please note that, in order to run glove-based models, one must download them [he
 
 
 Additionally, please note that non-lexical models are not fully deterministic as the linear classifiers are randomly initialized. Small-data problems are particularly sensitive to initialization, thus you might not produce the exact results found in the paper, however they will be close. Feel free to request pre-trained weights for any of the models as needed. 
+
+
+
+### TODO
+
+- Add HAN to codebase
