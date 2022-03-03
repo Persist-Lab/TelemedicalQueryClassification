@@ -11,9 +11,9 @@ import scipy.stats as st
 
 from utils import f1_precision_recall
 
-class SBERTForInquiryFiltering(nn.Module):
+class SBERTForTelemedicalQueryClassification(nn.Module):
   def __init__(self, train_set, test_set, triplets_per = 50, batch_size = 8, num_epochs = 1):
-    super(SBERTForInquiryFiltering, self).__init__()
+    super(SBERTForTelemedicalQueryClassification, self).__init__()
     self.train_set = train_set
     self.test_set = test_set
     self.triplets_per = triplets_per
