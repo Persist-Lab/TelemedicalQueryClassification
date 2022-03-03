@@ -25,7 +25,7 @@ class Config(object):
     dropout_keep = 0.5
 
 
-class BiLSTMForInquiryFiltering(nn.Module):
+class BiLSTMForTelemedicalQueryClassification(nn.Module):
     def __init__(self, train_set, test_set, path_to_glove = '/content/drive/MyDrive/glove_vecs/glove.6B.300d.txt'):
         super().__init__()
 
