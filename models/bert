@@ -6,7 +6,7 @@ from datasets import Dataset, DatasetDict
 
 from utils import f1_precision_recall
 
-class BERTForInquiryFiltering(nn.Module):
+class BERTForTelemedicalQueryClassification(nn.Module):
     def __init__(self, train_set, test_set, model_name, num_labels = 2, lr = 5e-5, num_epochs = 5, batch_size = 8, weight_decay = 0.01):
         super().__init__()
 
