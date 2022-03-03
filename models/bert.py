@@ -26,13 +26,11 @@ class BERTForTelemedicalQueryClassification(nn.Module):
         ### Prep Trainer ###
         self.training_args = TrainingArguments(
                   do_train=True,
-                  do_eval=True,
+                  do_eval=False,
                   output_dir="/content",
                   learning_rate=lr,
                   num_train_epochs=num_epochs,
                   overwrite_output_dir=True,
-                  evaluation_strategy='steps',
-                  eval_steps=45,
                   per_device_eval_batch_size=batch_size,
                   per_device_train_batch_size=batch_size,
                   logging_steps = 100,
