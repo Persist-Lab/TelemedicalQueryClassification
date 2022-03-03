@@ -11,6 +11,8 @@ from sklearn.metrics import *
 from tqdm import tqdm_notebook
 from utils import f1_precision_recall
 
+import numpy as np 
+
 class Config(object):
     embed_size = 300
     hidden_layers = 2
