@@ -48,8 +48,8 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
   def evaluate(self, n=10):
     # Get embeddings to train KNN 
     print("Evaluating...")
-    train_embeddings = [self.model.encode(x) for x in self.train_set.query.tolist()]
-    test_embeddings = [self.model.encode(x) for x in self.test_set.query.tolist()]
+    train_embeddings = [self.model.encode(x) for x in self.train_set['query'].tolist()]
+    test_embeddings = [self.model.encode(x) for x in self.test_set['query'].tolist()]
     
     # Fit KNN
     knn=KNeighborsClassifier(n)
@@ -60,10 +60,8 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
     f1, precision, recall = f1_precision_recall(self.test_set.label.tolist(), preds)
     return (f1, precision, recall), preds 
 
-  def get_triplets(self, dataset, train=True):
-    # How many triplets to generate per sample 
-    triplets_per = self.triplets_per if train else 1
-    
+  def get_triplets(self, dataset):
+
     non_severes = dataset[dataset.label==0]
     severes = dataset[dataset.label==1]
     class_dfs = {"non_severes": non_severes,
@@ -77,7 +75,7 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
         # Create DF with every sample which is not S
         all_others = df[df['query'] != text]
         # Randomly generate triplets 
-        for i in range(triplets_per):
+        for i in range(self.triplets_per):
           pos = all_others.sample(n=1)['query'].item()
           if key == "severes":
             neg = non_severes.sample(n=1)['query'].item()
