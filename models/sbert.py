@@ -74,7 +74,6 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
       for s in range(len(df)):
         # Get sample S
         text, label = df.iloc[s]
-        print(df)
         # Create DF with every sample which is not S
         all_others = df[df['query'] != text]
         # Randomly generate triplets 
