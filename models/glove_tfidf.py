@@ -33,10 +33,10 @@ class SVMForTelemedicalQueryClassification():
         self.model = SVC() 
 
     def train(self):
-      self.model.fit(self.X_train_question, self.train_set.to_pandas()['label'])
+      self.model.fit(self.X_train_question, self.train_set['label'])
 
     def evaluate(self):
-      labels = self.test_set.to_pandas()['label']
+      labels = self.test_set['label']
       test_preds = self.model.predict(self.X_test_question)
       f1, precision, recall = f1_precision_recall(labels, test_preds)
 
