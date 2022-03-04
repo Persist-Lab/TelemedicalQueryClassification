@@ -21,21 +21,23 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
     self.batch_size = batch_size
     self.num_epochs = num_epochs
 
+    # Build training example list for sentence-transformer library using InputExamples 
     self.train_examples = []
     for sample in self.train_triplets:
       self.train_examples.append(InputExample(texts=[sample[0][0], sample[1][0], sample[2][0]]))
 
-
+    # Initialize embedding model 
     self.word_embedding_model = models.Transformer('bert-base-uncased')
     self.pooling_model = models.Pooling(self.word_embedding_model.get_word_embedding_dimension(),
                                   pooling_mode_mean_tokens=True,
                                   pooling_mode_cls_token=False,
                                   pooling_mode_max_tokens=False)
-
     self.model = SentenceTransformer(modules=[self.word_embedding_model, self.pooling_model])
 
   def train(self):
-    
+    '''
+    Fine-Tune SBERT using Triplet loss. 
+    '''
     train_dataloader = DataLoader(self.train_examples, shuffle=True, batch_size=self.batch_size)
     train_loss = losses.TripletLoss(model=self.model)
     warmup_steps = int(len(train_dataloader) * self.num_epochs * 0.1)
@@ -46,8 +48,8 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
             output_path='/content/')
     
   def evaluate(self, n=10):
-    # Get embeddings to train KNN 
-    print("Evaluating...")
+    
+    # Get embeddings to train/test KNN 
     train_embeddings = [self.model.encode(x) for x in self.train_set['query'].tolist()]
     test_embeddings = [self.model.encode(x) for x in self.test_set['query'].tolist()]
     
@@ -62,12 +64,14 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
 
   def get_triplets(self, dataset):
 
+    # Separate severe from non severe samples 
     non_severes = dataset[dataset.label==0]
     severes = dataset[dataset.label==1]
     class_dfs = {"non_severes": non_severes,
                  "severes": severes}
     anchor_triplets = []
 
+    # for each df in [non_severe, severe] 
     for key, df in class_dfs.items():
       for s in range(len(df)):
         # Get sample S
