@@ -2,7 +2,7 @@
 Code for the paper: Identifying the Perceived Severity of Patient-generated Telemedicine Queries Regarding COVID:  Developing and Evaluating a Transfer Learning Based Solution
 
 ## Instructions 
-Telemedical query dataset is located in found in **medical_query_dataset.csv**
+Telemedical query dataset is found in  **medical_query_dataset.csv**
 
 Full example of how to run each model can be found on Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Inggl-ILWpyNqFqNZmoS4mRC3qOu2fK4?usp=sharing)
 
