@@ -44,6 +44,9 @@ class SVMForTelemedicalQueryClassification():
       return (f1, precision, recall), test_preds
 
     def load_glove(self, path):
+        '''
+        Load glove vectors 
+        '''
         glove_embeddings = dict()
         with open(path, 'r') as f:
           for line in f:
@@ -54,7 +57,9 @@ class SVMForTelemedicalQueryClassification():
         self.glove_embeddings = glove_embeddings
 
     def tokenize(self, s):
-      # Used by TFIDF vectorizer; stems if word not in nltk stop words
+        '''
+        Tokenize samples 
+        '''
       return [self.stemmer.stem(w) for w in nltk.word_tokenize(s.lower()) if w not in self.stop_words]
 
     def tokenize_raw_symptoms(self, s):
@@ -66,7 +71,7 @@ class SVMForTelemedicalQueryClassification():
 class GloveVectorizer:
   def __init__(self, embeddings):
     self.embeddings = embeddings
-    self.D = 300  # Number of dimensions in embeddings
+    self.D = 300
 
   def fit(self, data):
     pass
@@ -81,20 +86,16 @@ class GloveVectorizer:
       m = 0
       for word in tokens:
         try:
-          # throws KeyError if word not found
           vec = self.embeddings[word]
           vecs.append(vec)
           m += 1
         except KeyError:
-          # The word that we don't have an embedding for just won't be factored into the sample's average 
           pass
 
       if len(vecs) > 0:
         vecs = np.array(vecs)
         X[n] = vecs.mean(axis=0)
       else:
-        # This only executes if a sample is empty or consists entirely of 
-        # words not in GloVe; afaik this doesn't happen
         emptycount += 1
       n += 1
     return X
