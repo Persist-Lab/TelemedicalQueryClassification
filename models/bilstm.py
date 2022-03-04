@@ -1,4 +1,5 @@
 ### Bi-LSTM Model ### 
+### Code base on implementation by https://github.com/AnubhavGupta3377/Text-Classification-Models-Pytorch ### 
 
 import torchtext as tt
 from torchtext.legacy import data
