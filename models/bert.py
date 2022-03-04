@@ -10,11 +10,10 @@ class BERTForTelemedicalQueryClassification(nn.Module):
     def __init__(self, train_set, test_set, model_name, num_labels = 2, lr = 5e-5, num_epochs = 5, batch_size = 8, weight_decay = 0.01):
         super().__init__()
 
-        ### Prep Data ### 
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.MAX_LEN = 200
 
-
+        # Tokenize data   
         train_set, test_set = Dataset.from_pandas(train_set), Dataset.from_pandas(test_set)
         self.train_enc_data = train_set.map(self.preprocess_data, batched=False)
         self.test_enc_data = test_set.map(self.preprocess_data, batched=False)
