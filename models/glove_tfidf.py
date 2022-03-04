@@ -59,9 +59,9 @@ class SVMForTelemedicalQueryClassification():
         self.glove_embeddings = glove_embeddings
 
     def tokenize(self, s):
-        '''
-        Tokenize samples 
-        '''
+      '''
+      Tokenize samples 
+      '''
       return [self.stemmer.stem(w) for w in nltk.word_tokenize(s.lower()) if w not in self.stop_words]
 
     def tokenize_raw_symptoms(self, s):
