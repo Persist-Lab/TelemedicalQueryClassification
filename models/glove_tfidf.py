@@ -1,3 +1,5 @@
+# GloVe vectorizer based off https://edumunozsala.github.io/BlogEms/jupyter/nlp/classification/embeddings/python/2020/08/15/Intro_NLP_WordEmbeddings_Classification.html#Applying-the-word-embedding-to-a-text-classification-task 
+
 import re
 
 from sklearn.feature_extraction.text import TfidfVectorizer
