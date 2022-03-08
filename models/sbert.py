@@ -33,7 +33,7 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
                                   pooling_mode_cls_token=False,
                                   pooling_mode_max_tokens=False)
     self.model = SentenceTransformer(modules=[self.word_embedding_model, self.pooling_model])
-
+    self.model.max_seq_length = 200
   def train(self):
     '''
     Fine-Tune SBERT using Triplet loss. 
