@@ -27,7 +27,7 @@ class SBERTForTelemedicalQueryClassification(nn.Module):
       self.train_examples.append(InputExample(texts=[sample[0][0], sample[1][0], sample[2][0]]))
 
     # Initialize embedding model 
-    self.word_embedding_model = models.Transformer('all-MiniLM-L6-v2')
+    self.word_embedding_model = models.Transformer('bert-base-uncased')
     self.pooling_model = models.Pooling(self.word_embedding_model.get_word_embedding_dimension(),
                                   pooling_mode_mean_tokens=True,
                                   pooling_mode_cls_token=False,
